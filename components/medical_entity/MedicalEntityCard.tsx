@@ -26,9 +26,9 @@ const MedicalEntityCard: React.FC<MedicalEntityCardProps> = ({ entity, isFeature
   const cardBg = isFeatured ? "bg-slate-800/70" : "bg-slate-800";
   return (
     <div className={`${cardBg} rounded-xl shadow-xl overflow-hidden transform hover:scale-105 transition-all duration-300 ease-in-out group`}>
-      {entity.imageUrl && (
+      {entity.imageurl && (
         <div className="w-full h-48 overflow-hidden">
-          <img src={entity.imageUrl} alt={entity.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"/>
+          <img src={entity.imageurl} alt={entity.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"/>
         </div>
       )}
       <div className="p-5">

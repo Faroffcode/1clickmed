@@ -1,4 +1,3 @@
-
 export enum EntityCategory {
   Doctor = 'Doctor',
   Hospital = 'Hospital',
@@ -21,7 +20,7 @@ export interface MedicalEntity {
   contact: string;
   rating: number; // 1-5
   services: string[]; // Array of service names
-  imageUrl?: string;
+  imageurl?: string; // Changed from imageUrl to imageurl
 }
 
 export type MedicalEntityFormData = Omit<MedicalEntity, 'id' | 'rating'> & { rating: string }; // Rating as string for form input
@@ -33,5 +32,4 @@ export interface Specialty {
   specialistCount: number;
 }
 
-// Fix: Added 'doctorsPage', 'medicalShopsPage', 'labsPage', 'hospitalsPage' to UserSubView type
 export type UserSubView = 'home' | 'login' | 'signup' | 'doctorsPage' | 'medicalShopsPage' | 'labsPage' | 'hospitalsPage';

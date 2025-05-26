@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { MedicalEntity, EntityCategory, MedicalEntityFormData } from '../../types';
 import { PREDEFINED_SERVICES } from '../../constants';
@@ -24,7 +23,7 @@ const EntityForm: React.FC<EntityFormProps> = ({ initialData, onSubmit, onCancel
     contact: '',
     rating: '3',
     services: [],
-    imageUrl: '',
+    imageurl: '',
   };
 
   const [formData, setFormData] = useState<MedicalEntityFormData>(emptyFormData);
@@ -37,8 +36,8 @@ const EntityForm: React.FC<EntityFormProps> = ({ initialData, onSubmit, onCancel
         rating: String(initialData.rating),
         category: targetCategory && !initialData.id ? targetCategory : initialData.category,
       });
-      if (initialData.imageUrl) {
-        setImagePreviewUrl(initialData.imageUrl);
+      if (initialData.imageurl) {
+        setImagePreviewUrl(initialData.imageurl);
       } else {
         setImagePreviewUrl(null);
       }
@@ -70,20 +69,16 @@ const EntityForm: React.FC<EntityFormProps> = ({ initialData, onSubmit, onCancel
       const reader = new FileReader();
       reader.onloadend = () => {
         const result = reader.result as string;
-        setFormData(prev => ({ ...prev, imageUrl: result }));
+        setFormData(prev => ({ ...prev, imageurl: result }));
         setImagePreviewUrl(result);
       };
       reader.readAsDataURL(file);
-    } else {
-      // If no file is selected (e.g., user cancels file dialog), keep existing or clear if appropriate
-      // For simplicity, we don't revert here automatically unless a "remove" button is used.
     }
   };
 
   const removeImage = () => {
-    setFormData(prev => ({ ...prev, imageUrl: '' }));
+    setFormData(prev => ({ ...prev, imageurl: '' }));
     setImagePreviewUrl(null);
-    // Reset file input value so the same file can be re-selected
     const fileInput = document.getElementById('imageUpload') as HTMLInputElement;
     if (fileInput) {
         fileInput.value = '';
@@ -124,7 +119,6 @@ const EntityForm: React.FC<EntityFormProps> = ({ initialData, onSubmit, onCancel
       <Input name="rating" label="Rating (1-5)" type="number" min="0" max="5" step="0.1" value={formData.rating} onChange={handleChange} required
              className="bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400" />
       
-      {/* Image Upload Section */}
       <div>
         <label htmlFor="imageUpload" className="block text-sm font-medium text-slate-300 mb-1">
           Image
@@ -142,7 +136,7 @@ const EntityForm: React.FC<EntityFormProps> = ({ initialData, onSubmit, onCancel
               name="imageUpload"
               type="file"
               accept="image/*"
-              className="sr-only" // Hide default input, trigger via label
+              className="sr-only"
               onChange={handleImageChange}
             />
             {imagePreviewUrl && (
@@ -156,38 +150,35 @@ const EntityForm: React.FC<EntityFormProps> = ({ initialData, onSubmit, onCancel
               <img src={imagePreviewUrl} alt="Preview" className="h-32 w-auto rounded" />
             </div>
           )}
-          {!imagePreviewUrl && !initialData?.imageUrl && (
+          {!imagePreviewUrl && !initialData?.imageurl && (
              <p className="mt-2 text-xs text-slate-400">No image selected. JPG, PNG, GIF, WebP accepted.</p>
           )}
         </div>
       </div>
-      {/* Fallback for existing web URLs, not editable via file input */}
-      {initialData?.imageUrl && !initialData.imageUrl.startsWith('data:image') && (
+      {initialData?.imageurl && !initialData.imageurl.startsWith('data:image') && (
           <div>
               <label className="block text-sm font-medium text-slate-300 mb-1">Current Image URL (Web Link)</label>
               <Input 
-                name="imageUrl" 
-                value={formData.imageUrl || ''} 
+                name="imageurl" 
+                value={formData.imageurl || ''} 
                 onChange={handleChange} 
                 placeholder="https://example.com/image.jpg"
                 className="bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400"
-                disabled // If it's a web link, it's not directly editable by the file upload. User can upload a new one to replace.
+                disabled
               />
                <p className="mt-1 text-xs text-slate-400">This is an external image URL. To change it, upload a new image above or manually edit the URL (if not a local upload).</p>
           </div>
       )}
-       {/* Field for manually entering an image URL if no file is uploaded and it's not a Base64 data URL */}
-      {!imagePreviewUrl && (!initialData?.imageUrl || !initialData.imageUrl.startsWith('data:image')) && (
+       {!imagePreviewUrl && (!initialData?.imageurl || !initialData.imageurl.startsWith('data:image')) && (
         <Input 
-            name="imageUrl" 
+            name="imageurl" 
             label="Or Enter Image URL (Optional)" 
-            value={formData.imageUrl || ''} 
+            value={formData.imageurl || ''} 
             onChange={handleChange} 
             placeholder="https://example.com/image.jpg"
             className="bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400" 
         />
       )}
-
 
       <div>
         <label className="block text-sm font-medium text-slate-300 mb-1">Services</label>
@@ -215,14 +206,14 @@ const EntityForm: React.FC<EntityFormProps> = ({ initialData, onSubmit, onCancel
             width: 6px;
           }
           .custom-scrollbar::-webkit-scrollbar-track {
-            background: #334155; /* slate-700 */
+            background: #334155;
           }
           .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #64748B; /* slate-500 */
+            background: #64748B;
             border-radius: 3px;
           }
           .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8; /* slate-400 */
+            background: #94A3B8;
           }
         `}
       </style>
@@ -231,4 +222,3 @@ const EntityForm: React.FC<EntityFormProps> = ({ initialData, onSubmit, onCancel
 };
 
 export default EntityForm;
-    
