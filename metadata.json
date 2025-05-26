@@ -1,0 +1,6 @@
+{
+  "name": "1clickMed",
+  "description": "A web application to search for doctors, medical shops, hospitals, and pathology labs, with filtering by location, category, and services. Includes an admin interface to manage listings.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
