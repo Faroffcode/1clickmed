@@ -140,7 +140,7 @@ const EntityForm: React.FC<EntityFormProps> = ({ initialData, onSubmit, onCancel
               onChange={handleImageChange}
             />
             {imagePreviewUrl && (
-              <Button type="button" variant="ghost" size="sm" onClick={removeImage} className="text-red-400 hover:text-red-300">
+              <Button type="button\" variant="ghost\" size="sm\" onClick={removeImage} className="text-red-400 hover:text-red-300">
                 Remove Image
               </Button>
             )}
